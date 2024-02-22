@@ -30,7 +30,8 @@ p{
     margin: 1em 0;
 }
 
-/* style.css */
+/* for comments */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -96,3 +97,20 @@ body {
     margin-top: 5px;
     text-align: justify;
 }
+
+.delete-comment {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    float: right;
+    margin-top: -20px; /* Adjust based on your design */
+    border-radius: 5px;
+}
+
+.delete-comment:hover {
+    background: #ff3333;
+}
+

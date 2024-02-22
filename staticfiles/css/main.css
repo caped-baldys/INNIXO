@@ -52,7 +52,7 @@ h6{
     color: #198754;
 }
  .section{
-     margin: 2em 0;
+     margin: 2em 0;  
  }
 
 .btn{
@@ -101,6 +101,10 @@ h6{
     margin: 0 auto;
     padding:0 1em ;
     border-radius: 4px;
+
+    /* Transpaency properties */
+
+
 }
 
 
@@ -294,87 +298,14 @@ nav{
     flex-wrap: wrap;
  }
 
- /* style.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
-}
-
-.comment-wrapper {
-    background: #fff;
-    padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    max-width: 800px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.comment-form input, .comment-form textarea, .comment-form button {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.comment-form button {
-    background: #5cb85c;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-.comment-form button:hover {
-    background: #4cae4c;
-}
-
-.comments-section {
-    margin-top: 20px;
-}
-
-.comment {
-    border-bottom: 1px solid #eee;
-    padding: 10px 0;
-}
-
-.comment:last-child {
-    border-bottom: none;
-}
-
-.comment-header {
-    font-size: 14px;
-    color: #666;
-}
-
-.comment-date {
-    float: right;
-    color: #aaa;
-    font-size: 12px;
-}
-
-.comment-body {
-    margin-top: 5px;
-    text-align: justify;
-}
-
+ 
 
 
   /* LOGIN/REGISTRATION/EDIT STYLING */
 
  
 
-  .login-register--container,.edit-accinfo-container{
-      max-width: 564px;
-      margin: 0 auto;
-      border:1px solid rgb(218, 218, 218);
-      padding: 45px 50px;
-      border-radius: 5px;
-  }
-
+  
   .form-field--title{
     font-family: 'Readex Pro';
     font-style: normal;
@@ -482,11 +413,14 @@ body {
  @media (max-width:800px) {
 
     #logo--wrapper{
-        display:  none;
-        flex-direction: column;
-        width: 100%;
+        flex-grow: 1;
+        text-align: left;;
     }
-  
+    
+    .animate-character {
+        font-size: 90px; /* Adjusted for smaller screens */
+        /* Additional responsive adjustments if needed */
+    }
 
     .users--lists{
    
@@ -497,12 +431,6 @@ body {
 
 @media (max-width:600px) {
 
-    #logo--wrapper{
-        display:  none;
-        flex-direction: column;
-        width: 100%;
-    }
-    
     #intro--headline{
         font-size: 28px;
     }
@@ -523,17 +451,46 @@ body {
     
     }
 }
+    /* Gradient Color */
 
-/* Alert messages */
+    body {
+        background: linear-gradient(-45deg, #ee7752, #a33ce7, #303fc4, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100%;
+        overflow-x: hidden; 
+    }
+    
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    
+    
+        /* Alert messages */
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    
+    .alert-success { background-color: #dff0d8; color: #3c763d; border-color: #d6e9c6; }
+    .alert-info    { background-color: #d9edf7; color: #31708f; border-color: #bce8f1; }
+    .alert-warning { background-color: #fcf8e3; color: #8a6d3b; border-color: #faebcc; }
+    .alert-error   { background-color: #f2dede; color: #a94442; border-color: #ebccd1; }
 
-.alert {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    /* Text gradient color */
+.radial-text-gradient {
+    background: radial-gradient(circle, rgb(1, 9, 128), rgb(22, 139, 248));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
-
-.alert-success { background-color: #dff0d8; color: #3c763d; border-color: #d6e9c6; }
-.alert-info    { background-color: #d9edf7; color: #31708f; border-color: #bce8f1; }
-.alert-warning { background-color: #fcf8e3; color: #8a6d3b; border-color: #faebcc; }
-.alert-error   { background-color: #f2dede; color: #a94442; border-color: #ebccd1; }
