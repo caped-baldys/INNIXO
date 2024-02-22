@@ -8,7 +8,11 @@
     <link rel="icon" type="image/svg+xml" href='{% static "images/favicon.svg" %}' />
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='{% static "css/main.css" %}'>
-    <!-- <script src='main.js'></script> -->
+    <script >
+         $(window).on('load', function () {
+                $('.container--main').fadeOut(300)
+            })
+    </script>
 </head>
 
 <body>
@@ -29,6 +33,7 @@
 
     {% endblock content %}
     </div>
+
 </body>
 <footer>
     {% include 'footer.html' %}
