@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>INNIXO</title>
+    <link rel="icon" type="image/svg+xml" href='{% static "images/favicon.svg" %}' />
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='{% static "css/main.css" %}'>
+    <!-- <script src='main.js'></script> -->
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="container--main">
+    {% block content %}
+
+    {% endblock content %}
+    </div>
+</body>
+<footer>
+    {% include 'footer.html' %}
+</footer>
+</html>

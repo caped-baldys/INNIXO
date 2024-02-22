@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<link rel='stylesheet' type='text/css' media='screen' href='{% static "css/home.css" %}'>
+    <div class="section">
+        {% include 'ticker-text.html' %}
+    </div>
+    <div class="section" id="home__hero">
+        <div id="hero__content">
+            <h3 id="intro--headline" class="radial-text-gradient">Compete in monthly Hackathons and win cash prizes</h3>
+
+            <p id="intro--subheadline">INNIXO is a website where anyone can compete in beginner friendly coding & designing challenges and win prizes! Learn and collaborate with other devs to level up your skills.</p>
+        </div>
+    
+
+
+        <div>
+            <div>
+                <h1 class="animate-charcter">Events</h1>
+            </div>
+            
+            <div class="events--lists section">
+                {% for event in events %}
+            
+                    <a href="{% url 'event' event.id %}">
+                        <div class="event__wrapper">
+                            <h5 class="event__preview--title">{{event.name}}</h5>
+
+                            <div class="event__preview__details">
+                                <div class="dot__wrapper">
+                                    {% if event.event_status == 'Ongoing' %}
+                                        <div class="dot dot--green"></div>
+                                    {% else %}
+                                        <div class="dot dot--red"></div>
+                                    {% endif %}
+
+                                    <p>{{event.event_status}}</p>
+                                </div>
+                                <p>{{event.participants.all.count}} Participants</p>
+                            </div>
+
+                            <div>
+                                <p>{{event.preview|linebreaks}}</p>
+                            </div>
+                            <div class="event__preview__details__bottom">
+                                <div>
+                                    <p>Start Date:</p>
+                                    <p class="event--date">{{event.start_date|date:"d.m.Y"}}</p>
+                                </div>
+
+                                <div>
+                                    <p>End Date:</p>
+                                    <p class="event--date">{{event.end_date|date:"d.m.Y"}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            <h4>All Participants> {{count}}</h4>
+
+        </div>
+    </div>    
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'main.html' %}
+{% load markdown_extras %}
+{% load static %}
+
+{% block content %}
+<link rel='stylesheet' type='text/css' media='screen' href='{% static "css/event.css" %}'>
+
+
+    <div class="section">
+        <h1>{{event.name}}</h1>
+    </div>
+   
+    {% if event.event_status == 'Ongoing' %}
+    <div class="section" id="event--action--wrapper">
+        {% if registered %} 
+            <p class="text--success">You have already registed for this event || </p>
+        {% else %}
+            <a class="btn btn--primary"  href="{% url 'registration-confirmation' event.id %}">Register</a>
+        {% endif %}
+
+        {% if submitted %} 
+            <p class="text--success">You have already submitted your project</p>
+        {% else %}
+            <a class="btn btn--secondary" href="{% url 'project-submission' event.id %}">Submit Project</a>
+        {% endif %}
+    
+    </div>
+    {% else %}
+        <p>Registration closed for this event.</p>
+    {% endif %}
+
+    <div class="markdown-body">
+        {{event.description | markdown | safe }}
+    </div>
+    <div class="comment-wrapper">
+        <h5>Comments:</h5>
+
+        {% if request.user.is_authenticated %}
+            <div class="comment-form">
+                <form class="comment-form" method="POST" action="">
+                    {% csrf_token %}
+                    <input type="'text" name="body" placeholder="Write a message here ..." required/>
+                    <button type="submit">Post Comment</button>
+                </form>
+            </div>
+            <hr>
+        {% else %}
+            <div class="comment-form">
+                <p><a href="{% url 'login' %}">Login</a> to Post comments</p>
+            </div>
+            <hr>
+        {% endif %}
+            <div class="comments-section">
+                {% for message in comments  %}
+
+                    <div class="comment">
+                        <form method="POST" action="{% url 'delete-message' %}">
+                        {% if request.user == message.user %}
+                            {% csrf_token %}
+                            <input type="hidden" name="Id" value="{{ message.id }}">
+                            <button class="delete-comment" type='submit' class="delete-comment">Delete</button>
+                        {% endif %}
+                        </form>
+                        <div class="comment-header">
+                            <small><a href="">@{{message.user.name}}</a>  <p class="comment-date">{{message.created|timesince}} ago</p></small>
+                        </div>
+                        <div class="comment-body">
+                            <p>{{message.body}}</p>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+    </div>
+    <h5>Participants</h5>
+    <div class="users--lists section">
+        {% for user in event.participants.all %}
+            <a href="{% url 'profile' user.id%}">
+                <div class="wrapper--user">
+
+                    <p>{{user.name}}</p>
+            
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock content %}
