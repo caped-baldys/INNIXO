@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-u9lq2&pv+229lk4i@md11$yrfrifxb5vw-&v+a7+$-utb6u)+*
 DEBUG = True#str(os.environ.get('DEBUG')) == "1"
 
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app','127.0.0.1']
 
 AUTH_USER_MODEL = 'base.User'
 # Application definition
