@@ -165,7 +165,6 @@ def event_page(request, pk):
             event=event,
             body=request.POST.get('body')
         )
-        print(message.user)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     context = {'event':event, 'registered':registered, 'submitted':submitted, 'comments':comments}
     return render(request, 'event.html', context)
