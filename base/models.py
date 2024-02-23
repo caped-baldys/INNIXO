@@ -82,8 +82,6 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="comments")
     event =  models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
     body = models.TextField()
-    id = models.UUIDField(default=uuid.uuid4, unique=True,
-                          primary_key=True, editable=False)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
