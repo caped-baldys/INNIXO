@@ -1,12 +1,13 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
+<div class="container--main">
 <link rel='stylesheet' type='text/css' media='screen' href='{% static "css/home.css" %}'>
     <div class="section">
         {% include 'ticker-text.html' %}
     </div>
     <div class="section" id="home__hero">
-        <div id="hero__content">
+        <div class="section" id="hero__content">
             <h2 id="intro--headline" class="radial-text-gradient">Welcome to INNIXO 2024 </h2>
 
             <p id="intro--subheadline"> The premier destination for college students passionate about technology, innovation, and design.
@@ -63,5 +64,6 @@
             <h4>Participation Count 💙 {{count}}</h4>
 
         </div>
-    </div>    
+    </div>
+</div>
 {% endblock %}

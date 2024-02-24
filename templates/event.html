@@ -1,19 +1,70 @@
 {% extends 'main.html' %}
-{% load markdown_extras %}
 {% load static %}
 
 {% block content %}
 <link rel='stylesheet' type='text/css' media='screen' href='{% static "css/event.css" %}'>
-
-
-    <div class="section">
-        <h1>{{event.name}}</h1>
-    </div>
+<style>
+h1,h2,h3,h4,h5,h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+  background: transparent;
+}
+.container--main {
+    width: 100%; /* Use 100% width for responsiveness */
+    max-width: 1200px; /* Max width stays at 1200px */
+    margin-top: 1em;
+    padding: 1em 1em 1em 1em;
+    border-radius: 4px;
+    background-image: url('{% static 'images/backgrounds/'|add:event.name|add:'.png' %}');
+    background-size: cover; /* Ensure the background covers the container */
+    background-position: center; /* Center the background image */
+}
+.container--main--w {
+    width: 100%; /* Use 100% width for responsiveness */
+    max-width: 1200px; /* Max width stays at 1200px */
+    margin: 1em auto;
+    padding-left: 1em;
+    padding-bottom: 1em;
+    border-radius: 4px;
    
+}
+
+.section-event-desc {
+    margin: 2em auto;
+    background: rgba(138, 43, 226, 0.8);
+    border-radius: 4px;
+    text-align: left;
+    font-size: x-large;
+    padding: 1em 1em 1em 1em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) { /* Adjustments for tablets */
+    .container--main {
+        padding: 0 0.5em; /* Reduce padding on smaller devices */
+    }
+
+    .section-event-desc {
+        margin: 1em 0; /* Smaller margin for smaller devices */
+    }
+}
+
+@media (max-width: 480px) { /* Adjustments for smartphones */
+    .container--main {
+        padding: 0 0.5em; /* Keep padding reduced for very small devices */
+    }
+
+    .section-event-desc {
+        margin: 1em 0; /* Keep margin reduced for very small devices */
+    }
+}
+</style>
+<div class="container--main--w" style="background-color: white; width: 100%;">
+    <h2>{{event.name}} </h2>
     {% if event.event_status == 'Ongoing' %}
-    <div class="section" id="event--action--wrapper">
+    <div class="section-event" id="event--action--wrapper">
         {% if registered %} 
-            <p class="text--success">You have already registed for this event || </p>
+            <p class="text--success">You have already registed for this event </p>
         {% else %}
             <a class="btn btn--primary"  href="{% url 'registration-confirmation' event.id %}">Register</a>
         {% endif %}
@@ -26,11 +77,12 @@
     
     </div>
     {% else %}
-        <p>Registration closed for this event.</p>
+        <p class="error">Registration closed for this event.</p>
     {% endif %}
-
-    <div class="section">
-        {{event.description | markdown | safe }}
+</div>
+<div class="container--main">
+    <div class="section-event-desc">
+        <p class="white-text-transparent-bg" >{{event.description | safe }}</p>
     </div>
     <div class="comment-wrapper">
         <h5>Comments:</h5>
@@ -71,17 +123,14 @@
 
                 {% endfor %}
             </div>
-    </div>
-    <h5>Participants</h5>
-    <div class="users--lists section">
-        {% for user in event.participants.all %}
-            <a href="{% url 'profile' user.id%}">
-                <div class="wrapper--user">
-
-                    <p>{{user.name}}</p>
-            
+        </div>
+                <div class="container--main--w" ><h5>Participants</h5>
+                            {% for user in event.participants.all %}
+                                <a href="{% url 'profile' user.id%}">
+                                        <p>✅{{user.name}}</p>
+                                </a>
+                            {% endfor %}
                 </div>
-            </a>
-        {% endfor %}
     </div>
+</div>
 {% endblock content %}

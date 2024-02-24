@@ -149,7 +149,7 @@ from datetime import datetime
 def event_page(request, pk):
     event = Event.objects.get(id=pk)
     comments = event.comment_set.all()
-    
+    # print('image:',event.image.url)
     
     registered = False
     submitted = False

@@ -51,9 +51,12 @@ h6{
 
 .text--success{
     color: #198754;
+    font-weight: bolder;
+    font-family:'Courier New', Courier, monospace;
+    font-size: large;
 }
  .section{
-     margin: 2em 0;  
+     margin: 2em 0; 
  }
 
 .btn{
@@ -105,13 +108,11 @@ h6{
 .container--main{
     width: 1200px;
     margin: 0 auto;
+    margin-top: 1em;
     padding:0 1em ;
     border-radius: 4px;
-
-    /* Transpaency properties */
-
-
 }
+
 
 
 
@@ -417,7 +418,7 @@ nav{
   }
 
   .formsubmit-btn:hover{
-    transform: translateY(-5px);
+    transform: translateY(-2px);
     box-shadow: 5px 5px 15px rgba(0.4, 0.4, 0.4, 0.4);
   }
 
@@ -425,6 +426,9 @@ nav{
  @media (max-width:1200px) {
      .container--main{
          width: 100%;
+     }
+     .container--main--w{
+        width: 100%;
      }
  }
 

@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 {% load static %}
-<html>
+<html lang="en">
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>INNIXO</title>
-    <link rel="icon" type="image/svg+xml" href='{% static "images/favicon.svg" %}' />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2250%22 fill=%22%237d6ee7%22></rect>
+        <text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2290%22>🤺</text></svg>" />
     <meta name="keywords" content="INNIXO, techfest, DYPSST technology festival, INNIXO registration,tech fest registration, tech conference">
     <meta name="description" content="Join us at DYPSST for INNIXO 2024, the gathering for tech enthusiasts, innovators, and creators. Register now to secure your spot!">
     <meta property="og:title" content="INNIXO 2024 Registration Open Now" />
     <meta property="og:description" content="Don’t miss out on DYPSST's tech festival of the year. Register today to experience innovation like never before!" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://https://innixo.vercel.app/" />
+    <meta property="og:url" content="https://innixo.vercel.app/" />
     <meta property="og:image" content="https://innixo.vercel.app/static/images/innixo_logo.png" />
     <meta name="google-site-verification" content="vOPHoIkMiyG972vQ4z7019kGOPHkahGFdsn4Ubzl9Cw" />
 
@@ -37,11 +38,10 @@
     </ul>
     {% endif %}
 
-    <div class="container--main">
+    
     {% block content %}
 
     {% endblock content %}
-    </div>
 
 </body>
 <footer>
