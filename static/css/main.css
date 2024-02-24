@@ -453,6 +453,20 @@ nav{
 
 @media (max-width:600px) {
 
+    /* Navbar */
+    #logo--wrapper{
+        flex-grow: 1;
+        text-align: left;;
+    }
+    .btn {
+        padding: 5px 10px; /* Reduced padding */
+        font-size: 14px; /* Reduced font size */
+    }
+    /* Adjust logo text size if necessary */
+    #logo--text {
+        font-size: 25px; /* Adjusted logo text size */
+    }
+
     #intro--headline{
         font-size: 28px;
     }
