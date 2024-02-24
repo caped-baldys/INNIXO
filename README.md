@@ -3,5 +3,8 @@ Visit to checkOut the website :
 https://innixo.vercel.app/
 
 Performance Insights :
-https://pagespeed.web.dev/analysis/https-innixo-vercel-app/6unpulzjqs?form_factor=desktop
+Desktop:
+https://pagespeed.web.dev/analysis/https-innixo-vercel-app/upfp71omso?form_factor=desktop
+Moblie:
+https://pagespeed.web.dev/analysis/https-innixo-vercel-app/upfp71omso?form_factor=mobile
 
