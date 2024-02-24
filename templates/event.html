@@ -4,12 +4,7 @@
 {% block content %}
 <link rel='stylesheet' type='text/css' media='screen' href='{% static "css/event.css" %}'>
 <style>
-h1,h2,h3,h4,h5,h6 {
-  margin-top: 0;
-  margin-bottom: 0;
-  background: transparent;
-}
-.container--main {
+    .container--main {
     width: 100%; /* Use 100% width for responsiveness */
     max-width: 1200px; /* Max width stays at 1200px */
     margin-top: 1em;
@@ -18,46 +13,7 @@ h1,h2,h3,h4,h5,h6 {
     background-image: url('{% static 'images/backgrounds/'|add:event.name|add:'.png' %}');
     background-size: cover; /* Ensure the background covers the container */
     background-position: center; /* Center the background image */
-}
-.container--main--w {
-    width: 100%; /* Use 100% width for responsiveness */
-    max-width: 1200px; /* Max width stays at 1200px */
-    margin: 1em auto;
-    padding-left: 1em;
-    padding-bottom: 1em;
-    border-radius: 4px;
-   
-}
-
-.section-event-desc {
-    margin: 2em auto;
-    background: rgba(138, 43, 226, 0.8);
-    border-radius: 4px;
-    text-align: left;
-    font-size: x-large;
-    padding: 1em 1em 1em 1em;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) { /* Adjustments for tablets */
-    .container--main {
-        padding: 0 0.5em; /* Reduce padding on smaller devices */
     }
-
-    .section-event-desc {
-        margin: 1em 0; /* Smaller margin for smaller devices */
-    }
-}
-
-@media (max-width: 480px) { /* Adjustments for smartphones */
-    .container--main {
-        padding: 0 0.5em; /* Keep padding reduced for very small devices */
-    }
-
-    .section-event-desc {
-        margin: 1em 0; /* Keep margin reduced for very small devices */
-    }
-}
 </style>
 <div class="container--main--w" style="background-color: white; width: 100%;">
     <h2>{{event.name}} </h2>
