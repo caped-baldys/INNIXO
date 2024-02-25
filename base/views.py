@@ -10,6 +10,7 @@ from django.contrib.auth.hashers import make_password
 from PIL import Image
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
+from django.conf import settings
 # Create your views here.
 
 def login_page(request):
@@ -236,3 +237,9 @@ def deleteMessage(request):
         message.delete()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+#404 handler
+def error_404_view(request, exception):
+   
+    return render(request, '404.html')

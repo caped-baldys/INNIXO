@@ -24,7 +24,7 @@
         {% else %}
             <a class="btn btn--primary"  href="{% url 'registration-confirmation' event.id %}">Register</a>
         {% endif %}
-
+        <h2>|</h2>
         {% if submitted %} 
             <p class="text--success">You have already submitted your project</p>
         {% else %}
