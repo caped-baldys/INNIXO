@@ -19,4 +19,5 @@ urlpatterns = [
     path('project-submission/<str:pk>/', views.project_submission, name="project-submission"),
 
     path('update-submission/<str:pk>/', views.update_submission, name="update-submission"),
+    # path('newevent/', views.newevent, name="new-event"),
 ]

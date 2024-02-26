@@ -1,0 +1,75 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block event %}
+<link rel='stylesheet' type='text/css' media='screen' href='{% static "css/event-new.css" %}'>
+<!-- about -->
+ <!-- end about -->
+ <script >
+    $(window).on('load', function () {
+           $('.mainHeading').fadeOut(300)
+       })
+    $(window).on('load', function () {
+        $('.comment-wrapper').fadeOut(300)
+    })
+</script>
+<div class="mainHeading" >
+    <div class="mainHeading__content" style="padding: 1px; border-radius:4px; background: transparent;">
+       <article class="mainHeading__text">
+          <p class="mainHeading__preTitle">nature</p>
+          <h2 class="mainHeading__title" style="background: transparent;">{{event.name}}</h2>
+          <p class="mainHeading__description" style="background: transparent;">
+            {{event.description | safe }}
+          </p>
+          <button class="cta" href="{% url 'registration-confirmation' event.id %}">Register</button>
+       </article>
+ 
+       <figure class="mainHeading__image">
+          <img src="{% static 'images/backgrounds/'|add:event.name|add:'1.jpg' %}" alt="Event" />
+       </figure>
+    </div>
+ </div>
+    <div class="comment-wrapper">
+        <h5>Queries</h5>
+
+            {% if request.user.is_authenticated %}
+                <div class="comment-form">
+                    <form class="comment-form" method="POST" action="">
+                        {% csrf_token %}
+                        <input type="'text" name="body" placeholder="Write a message here ..." required/>
+                        <button type="submit">Post Query</button>
+                    </form>
+                </div>
+                <hr>
+            {% else %}
+                <div class="comment-form">
+                    <p><a href="{% url 'login' %}">Login</a> to Post Query</p>
+                </div>
+                <hr>
+            {% endif %}
+                <div class="comments-section">
+                    {% for message in comments  %}
+
+                        <div class="comment">
+                            <form method="POST" action="{% url 'delete-message' %}">
+                            {% if request.user == message.user %}
+                                {% csrf_token %}
+                                <input type="hidden" name="Id" value="{{ message.id }}">
+                                <button class="delete-comment" type='submit' class="delete-comment">Delete</button>
+                            {% endif %}
+                            </form>
+                            <div class="comment-header">
+                                <small><a href="{% url 'profile' user.id%}">@{{message.user.name}}</a>  <p class="comment-date">{{message.created|timesince}} ago</p></small>
+                            </div>
+                            <div class="comment-body">
+                                <p>{{message.body}}</p>
+                            </div>
+                            <hr>
+                        </div>
+
+                    {% endfor %}
+                </div>
+        </div>
+
+ {% endblock event %}

@@ -147,28 +147,28 @@ def change_password(request):
 import time
 from datetime import datetime
 
-def event_page(request, pk):
-    event = Event.objects.get(id=pk)
-    comments = event.comment_set.all()
-    # print('image:',event.image.url)
+# def event_page(request, pk):
+#     event = Event.objects.get(id=pk)
+#     comments = event.comment_set.all()
+#     # print('image:',event.image.url)
     
-    registered = False
-    submitted = False
+#     registered = False
+#     submitted = False
     
-    if request.user.is_authenticated:
+#     if request.user.is_authenticated:
 
-        registered = request.user.events.filter(id=event.id).exists()
-        submitted = Submission.objects.filter(participant=request.user, event=event).exists()
+#         registered = request.user.events.filter(id=event.id).exists()
+#         submitted = Submission.objects.filter(participant=request.user, event=event).exists()
 
-    if request.method == 'POST':
-        message = Comment.objects.create(
-            user=request.user,
-            event=event,
-            body=request.POST.get('body')
-        )
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    context = {'event':event, 'registered':registered, 'submitted':submitted, 'comments':comments}
-    return render(request, 'event.html', context)
+#     if request.method == 'POST':
+#         message = Comment.objects.create(
+#             user=request.user,
+#             event=event,
+#             body=request.POST.get('body')
+#         )
+#         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+#     context = {'event':event, 'registered':registered, 'submitted':submitted, 'comments':comments}
+#     return render(request, 'event.html', context)
 
 
 @login_required(login_url='/login')
@@ -238,6 +238,29 @@ def deleteMessage(request):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
+def event_page(request, pk):
+    event = Event.objects.get(id=pk)
+    comments = event.comment_set.all()
+    # print('image:',event.image.url)
+    
+    registered = False
+    submitted = False
+    
+    if request.user.is_authenticated:
+
+        registered = request.user.events.filter(id=event.id).exists()
+        submitted = Submission.objects.filter(participant=request.user, event=event).exists()
+
+    if request.method == 'POST':
+        message = Comment.objects.create(
+            user=request.user,
+            event=event,
+            body=request.POST.get('body')
+        )
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    context = {'event':event, 'registered':registered, 'submitted':submitted, 'comments':comments}
+    return render(request,'event-new.html',context)
 
 #404 handler
 def error_404_view(request, exception):
