@@ -46,16 +46,26 @@ class Event(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
 
-    ordering_filter = models.IntegerField()
+    ordering_filter = models.IntegerField(unique=True)
     #image = ResizedImageField(size=[300,300], default=)
     
     # image = models.ImageField(upload_to='backgrounds/', default='background.jpg')
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Check if the object is new
+            # Get the current maximum order value
+            max_order = Event.objects.aggregate(Max('ordering_filter'))['ordering_filter__max']
+            if max_order is not None:
+                self.order = max_order + 1
+            else:
+                self.order = 1  # This is the first object
+        super(Event, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        ordering = ['-end_date']
+        ordering = ['ordering_filter']
 
     @property
     def event_status(self):
