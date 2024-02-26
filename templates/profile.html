@@ -1,10 +1,23 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content %}
+<style>
+    .wrapper--events {
+    display: flex;
+    justify-content: space-around; /* Adjusts spacing between columns */
+}
+
+.events-column, .submissions-column {
+    flex: 1; /* Makes each column take up equal width */
+    padding: 10px; /* Optional: Adds some padding inside each column */
+}
+
+</style>
 <div class="container--main">
 
     <div class="section">
-        <!-- <img class="user--avatar--lg" src=""/> -->
+        <img class="user--avatar--lg" src='{% static "images/avatar.png" %}'/>
         <h1>{{user.name}}</h1>
     </div>
 
@@ -45,5 +58,25 @@
         <p>{{user.bio}}</p>
         {% endif %}
     </div>
+    <div class="wrapper--events" style="display: flex;">
+        <div class="events-column">
+            <h3>Events</h3>
+            {% for event in user.events.all %}
+                <div style="padding: 2px;"><a href="{% url 'event' event.id %}">{{event.name}}</a></div>
+            {% empty %}
+                <p> Didn't register for any events</p>
+            {% endfor %}
+        </div>
+    
+        <div class="submissions-column">
+            <h3>Submissions</h3>
+            {% for sub in user.submissions.all %}
+                <div style="padding: 2px;"><a href="{% url 'update-submission' sub.id %}">{{sub.event.name}}</a></div>
+            {% empty %}
+                <div style="padding: 3px;"><p> Didn't submit any projects yet</p></div>
+            {% endfor %}
+        </div>
+    </div>
+    
 </div>
 {% endblock content %}

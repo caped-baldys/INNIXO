@@ -10,7 +10,7 @@
     margin-top: 1em;
     padding: 1em 1em 1em 1em;
     border-radius: 4px;
-    background-image: url('{% static 'images/backgrounds/'|add:event.name|add:'.png' %}');
+    background-image: url('{% static 'images/backgrounds/'|add:event.name|add:'1.jpg' %}');
     background-size: cover; /* Ensure the background covers the container */
     background-position: center; /* Center the background image */
     }
@@ -69,11 +69,12 @@
                         {% endif %}
                         </form>
                         <div class="comment-header">
-                            <small><a href="">@{{message.user.name}}</a>  <p class="comment-date">{{message.created|timesince}} ago</p></small>
+                            <small><a href="{% url 'profile' user.id%}">@{{message.user.name}}</a>  <p class="comment-date">{{message.created|timesince}} ago</p></small>
                         </div>
                         <div class="comment-body">
                             <p>{{message.body}}</p>
                         </div>
+                        <hr>
                     </div>
 
                 {% endfor %}
