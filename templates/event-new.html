@@ -22,7 +22,23 @@
           <p class="mainHeading__description" style="background: transparent;">
             {{event.description | safe }}
           </p>
-          <button class="cta" href="{% url 'registration-confirmation' event.id %}">Register</button>
+          {% if event.event_status == 'Ongoing' %}
+    <div class="section-event" id="event--action--wrapper">
+        {% if registered %} 
+            <a class="btn btn--primary" style="background-color: green;">Registered</a>
+        {% else %}
+            <a class="btn btn--primary"  href="{% url 'registration-confirmation' event.id %}">Register</a>
+        {% endif %}
+        {% if submitted %} 
+        <a class="btn btn--primary" style="background-color: green;">Submitted</a>
+        {% else %}
+            <a class="btn btn--secondary" href="{% url 'project-submission' event.id %}">Submit Project</a>
+        {% endif %}
+    
+    </div>
+    {% else %}
+        <p class="error"><t>| </t>Registration closed for this event.</p>
+    {% endif %}
        </article>
  
        <figure class="mainHeading__image">
