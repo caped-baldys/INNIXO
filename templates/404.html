@@ -1,92 +1,115 @@
 
 <!DOCTYPE html>
 
-<style>
-@import url('https://fonts.googleapis.com/css?family=Fira+Mono:400');
 
-body{ 
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  background: #131313;
-  color: #fff;
-  font-size: 96px;
-  font-family: 'Fira Mono', monospace;
-  letter-spacing: -7px;
-}
-p{
-    background: transparent;
-    font-size: medium;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: 100;
-    letter-spacing: 10px;
-    color: #fff;
-}
-div{
-  animation: glitch 1s linear infinite;
-}
-
-@keyframes glitch{
-  2%,64%{
-    transform: translate(2px,0) skew(0deg);
-  }
-  4%,60%{
-    transform: translate(-2px,0) skew(0deg);
-  }
-  62%{
-    transform: translate(0,0) skew(5deg); 
-  }
-}
-.normal{
-    text-align: center;
-}
-div:before,
-div:after{
-  content: attr(title);
-  position: absolute;
-  left: 0;
-}
-
-div:before{
-  animation: glitchTop 1s linear infinite;
-  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-}
-
-@keyframes glitchTop{
-  2%,64%{
-    transform: translate(2px,-2px);
-  }
-  4%,60%{
-    transform: translate(-2px,2px);
-  }
-  62%{
-    transform: translate(13px,-1px) skew(-13deg); 
-  }
-}
-
-div:after{
-  animation: glitchBotom 1.5s linear infinite;
-  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
-  -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
-}
-
-@keyframes glitchBotom{
-  2%,64%{
-    transform: translate(-2px,0);
-  }
-  4%,60%{
-    transform: translate(-2px,0);
-  }
-  62%{
-    transform: translate(-22px,5px) skew(21deg); 
-  }
-}
-</style>
-    <div title="404">
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>404</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2250%22 fill=%22%237d6ee7%22></rect>
+      <text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2290%22>🤺</text></svg>" />
+  <meta name="keywords" content="INNIXO, techfest, DYPSST technology festival, INNIXO registration,tech fest registration, tech conference">
+  <meta name="description" content="Join us at DYPSST for INNIXO 2024, the gathering for tech enthusiasts, innovators, and creators. Register now to secure your spot!">
+  <meta property="og:title" content="INNIXO 2024 Registration Open Now" />
+  <meta property="og:description" content="Don’t miss out on DYPSST's tech festival of the year. Register today to experience innovation like never before!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://innixo.vercel.app/" />
+  <meta property="og:image" content="https://innixo.vercel.app/static/images/innixo_logo.png" />
+  <meta name="google-site-verification" content="vOPHoIkMiyG972vQ4z7019kGOPHkahGFdsn4Ubzl9Cw" />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <script >
+       $(window).on('load', function () {
+              $('div').fadeOut(300)
+          })
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Fira+Mono:400');
+    
+    body{ 
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      background: #131313;
+      color: #fff;
+      font-size: 96px;
+      font-family: 'Fira Mono', monospace;
+      letter-spacing: -7px;
+    }
+    p{
+        background: transparent;
+        font-size: medium;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 100;
+        letter-spacing: 10px;
+        color: #fff;
+    }
+    div{
+      animation: glitch 1s linear infinite;
+    }
+    
+    @keyframes glitch{
+      2%,64%{
+        transform: translate(2px,0) skew(0deg);
+      }
+      4%,60%{
+        transform: translate(-2px,0) skew(0deg);
+      }
+      62%{
+        transform: translate(0,0) skew(5deg); 
+      }
+    }
+    .normal{
+        text-align: center;
+    }
+    div:before,
+    div:after{
+      content: attr(title);
+      position: absolute;
+      left: 0;
+    }
+    
+    div:before{
+      animation: glitchTop 1s linear infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    }
+    
+    @keyframes glitchTop{
+      2%,64%{
+        transform: translate(2px,-2px);
+      }
+      4%,60%{
+        transform: translate(-2px,2px);
+      }
+      62%{
+        transform: translate(13px,-1px) skew(-13deg); 
+      }
+    }
+    
+    div:after{
+      animation: glitchBotom 1.5s linear infinite;
+      clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+      -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+    }
+    
+    @keyframes glitchBotom{
+      2%,64%{
+        transform: translate(-2px,0);
+      }
+      4%,60%{
+        transform: translate(-2px,0);
+      }
+      62%{
+        transform: translate(-22px,5px) skew(21deg); 
+      }
+    }
+    </style>
+</head>
+<body>
+<div>
         404 ERROR
         <p>Oooops!</p>
     </div>
@@ -95,5 +118,5 @@ div:after{
     </div>
         
         <p>Design by <a href="https://github.com/caped-baldys" title="styleshout">SACHIN</a></p>
-    
+</body>
 </html>

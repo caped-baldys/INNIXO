@@ -20,13 +20,12 @@
     {% if event.event_status == 'Ongoing' %}
     <div class="section-event" id="event--action--wrapper">
         {% if registered %} 
-            <p class="text--success">You have already registed for this event </p>
+        <a class="btn btn--primary" style="background-color: green;">Registered</a>
         {% else %}
             <a class="btn btn--primary"  href="{% url 'registration-confirmation' event.id %}">Register</a>
         {% endif %}
-        <h2>|</h2>
         {% if submitted %} 
-            <p class="text--success">You have already submitted your project</p>
+        <a class="btn btn--primary" style="background-color: green;">Submitted</a>
         {% else %}
             <a class="btn btn--secondary" href="{% url 'project-submission' event.id %}">Submit Project</a>
         {% endif %}
