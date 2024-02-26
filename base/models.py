@@ -46,6 +46,7 @@ class Event(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
 
+    ordering_filter = models.IntegerField()
     #image = ResizedImageField(size=[300,300], default=)
     
     # image = models.ImageField(upload_to='backgrounds/', default='background.jpg')
