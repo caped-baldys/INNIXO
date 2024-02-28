@@ -1,9 +1,9 @@
 import re
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.test import TestCase
-from .models import User, Event, Submission, Comment
-from .forms import SubmissionForm, CustomUserCreateForm, UserForm
+from .models import User, Event, Submission, Comment , EventRegistration
+from .forms import SubmissionForm, CustomUserCreateForm, UserForm , EventRegistrationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -11,6 +11,10 @@ from PIL import Image
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.files.storage import FileSystemStorage 
+import os
+# from settings import MEDIA_ROOT
 # Create your views here.
 
 def login_page(request):
@@ -146,41 +150,87 @@ def change_password(request):
 
 import time
 from datetime import datetime
+#For upload file path
 
-# def event_page(request, pk):
-#     event = Event.objects.get(id=pk)
-#     comments = event.comment_set.all()
-#     # print('image:',event.image.url)
+def get_custom_file_path(instance, filename):
+    # Extract the extension from the original file name
+    extension = filename.split('.')[-1]
     
-#     registered = False
-#     submitted = False
+    # Construct the new filename using the user's username
+    new_filename = f"{instance.teamleader.username}.{extension}"
     
-#     if request.user.is_authenticated:
+    # Create a directory path for the event name (replace spaces with underscores for better compatibility)
+    event_name_safe = instance.event.name.replace(' ', '_')
+    upload_dir = os.path.join(settings.UPLOADS_ROOT, event_name_safe)
+    
+    # Combine the new path and filename
+    custom_path = os.path.join(upload_dir, new_filename)
+    return custom_path
 
-#         registered = request.user.events.filter(id=event.id).exists()
-#         submitted = Submission.objects.filter(participant=request.user, event=event).exists()
 
-#     if request.method == 'POST':
-#         message = Comment.objects.create(
-#             user=request.user,
-#             event=event,
-#             body=request.POST.get('body')
-#         )
-#         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-#     context = {'event':event, 'registered':registered, 'submitted':submitted, 'comments':comments}
-#     return render(request, 'event.html', context)
 
 
 @login_required(login_url='/login')
 def registration_confirmation(request, pk):
-    event = Event.objects.get(id=pk)
-
-    if request.method == 'POST':
-        event.participants.add(request.user)
-        return redirect('event', pk=event.id)
-
     
-    return render(request, 'event_confirmation.html', {'event':event})
+    event = Event.objects.get(id=pk)
+    max_members = range(1, event.max_members + 1)
+    if request.method == 'POST':
+        # Process the form data
+        try:
+            event = Event.objects.get(id=pk)
+            max_members = range(1, event.max_members + 1)
+            # teamleader_id = request.user
+            teamleader = request.user
+            # Create a temporary instance to use in get_custom_file_path
+            temp_instance = EventRegistration(event=event, teamleader=teamleader)
+            team_name = request.POST.get('team_name')
+            phone_number = request.POST.get('phone_number')
+
+            payment_image = request.FILES.get('payment') if 'payment' in request.FILES else None
+
+            if payment_image:
+                            fs = FileSystemStorage()
+                            custom_path = get_custom_file_path(temp_instance, payment_image.name)
+                            # Save the file to the FileSystem
+                            filename = fs.save(custom_path, payment_image)
+                            uploaded_file_url = fs.url(filename)
+            else:
+                uploaded_file_url = None
+
+            registration = EventRegistration(
+                event=event,
+                teamleader=teamleader,
+                team_name=team_name,
+                phone_number=phone_number,
+                memeber_1=request.POST.get('memeber_1'),
+                memeber_2=request.POST.get('memeber_2'),
+                memeber_3=request.POST.get('memeber_3'),
+                memeber_4=request.POST.get('memeber_4'),
+                memeber_5=request.POST.get('memeber_5'),
+                payment=uploaded_file_url,
+            )
+
+            # Assuming you validate the phone number and other field    s as needed
+            registration.full_clean()
+            messages.info(request, 'You have registered for ', event.name)
+            registration.save()
+            return redirect('home')
+        except ValidationError as e:
+            # Handle errors and validation issues
+            print(e)
+            return render(request, 'event_confirmation.html', {'error': e.message_dict, 'event': event,'max_members': max_members,'min_members':2})
+        except Exception as e:
+            print(e)
+            # Generic error handling
+            return render(request, 'event_confirmation.html', {'error': str(e), 'event': event,'max_members': max_members,'min_members':2})
+    else:
+        # GET request, show the empty form
+        events = Event.objects.all()
+        teamleaders = User.objects.all()  # Adjust based on your User model
+        return render(request, 'event_confirmation.html', {'event': event, 'max_members': max_members,'min_members':2})
+
+    return render(request, 'event_confirmation.html', {'event':event,'form':form})
 
 @login_required(login_url='/login')
 def project_submission(request, pk):

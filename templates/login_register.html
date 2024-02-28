@@ -5,7 +5,7 @@
     {% if page == 'register' %}
     <div class="section">
         <div class="login-register--container">
-            <h1 class="form-field--title">Create an Account</h1>
+            <h1 class="form-field--title">Register for {{event.name}}</h1>
 
             <div>
             <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data">

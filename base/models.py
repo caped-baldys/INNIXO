@@ -2,12 +2,23 @@ from email.policy import default
 from django.db import models
 import uuid
 from django.contrib.auth.models import AbstractUser
-from django_resized import ResizedImageField
+from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.timezone import now
 import time
 from datetime import datetime
-from django_resized import ResizedImageField
+from django.utils.text import slugify
+import phonenumbers
+from django.conf import settings
+# from django_resized import ResizedImageField
 # Create your models here.
+def participant_event_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/uploads/event_name/participant_name/filename
+    event_name = slugify(instance.event.name)  # Accessing the related Event instance
+    teamleader = slugify(instance.teamleader)  # Assuming 'participant' field exists
+    base_filename, file_extension = filename.rsplit('.', 1)
+    new_filename = f"{teamleader}.{file_extension}"
+    return f'uploads/{event_name}/{new_filename}'
+
 
 class User(AbstractUser):
     name = models.CharField(max_length=100, null=True)
@@ -30,6 +41,13 @@ class User(AbstractUser):
     class Meta:
         ordering = ['name']
 
+def qr_upload_to(instance, filename):
+   
+    upload_to = settings.UPLOADS_QR_ROOT
+    ext = filename.split('.')[-1]
+    # Generate a unique filename using UUID
+    filename = slugify(instance.name)
+    return f'{upload_to}{filename}'
 
 
 
@@ -47,9 +65,14 @@ class Event(models.Model):
                           primary_key=True, editable=False)
 
     ordering_filter = models.IntegerField(unique=True)
+    max_members = models.IntegerField(null=True) 
+    min_members = models.IntegerField(null=True)
+    QR_code = models.ImageField(upload_to=qr_upload_to, blank=True, null=True)
+    
     #image = ResizedImageField(size=[300,300], default=)
     
     # image = models.ImageField(upload_to='backgrounds/', default='background.jpg')
+
 
     def save(self, *args, **kwargs):
         if not self.pk:  # Check if the object is new
@@ -67,6 +90,7 @@ class Event(models.Model):
     class Meta:
         ordering = ['ordering_filter']
 
+
     @property
     def event_status(self):
         status = None
@@ -81,6 +105,36 @@ class Event(models.Model):
             status = 'Ongoing'
 
         return status
+
+
+class EventRegistration(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='registrations')
+    teamleader = models.ForeignKey(User, on_delete=models.CASCADE, related_name='TeamLeader')
+    ## For adding members to group based event
+    team_name = models.CharField(max_length=200, blank=True, null=True)
+    phone_number = PhoneNumberField(null=True, blank=True, unique=True)
+    memeber_1 = models.CharField(max_length=200, blank=True, null=True)
+    memeber_2 = models.CharField(max_length=200, blank=True, null=True)
+    memeber_3 = models.CharField(max_length=200, blank=True, null=True)
+    memeber_4 = models.CharField(max_length=200, blank=True, null=True)
+    memeber_5 = models.CharField(max_length=200, blank=True, null=True)
+
+    payment = models.ImageField(upload_to=participant_event_directory_path, blank=True, null=True)
+
+
+    # def clean(self):
+    #     super().clean()
+    #     if self.phone_number:
+    #         try:
+    #             phone_number_obj = phonenumbers.parse(self.phone_number, "IN")
+    #             if not phonenumbers.is_valid_number(phone_number_obj):
+    #                 raise ValidationError({'phone_number': 'Phone number is not valid'})
+                
+    #             if phone_number_obj.country_code != 91:
+    #                 raise ValidationError({'phone_number': 'Phone number must be an Indian phone number'})
+    #         except phonenumbers.NumberParseException:
+    #             raise ValidationError({'phone_number': 'Phone number is not valid'})
+
 
 
 class Submission(models.Model):

@@ -26,6 +26,7 @@ urlpatterns = [
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+urlpatterns += static(settings.UPLOADS_URL, document_root=settings.UPLOADS_ROOT)
+urlpatterns += static(settings.UPLOADS_QR_URL, document_root=settings.UPLOADS_QR_ROOT)
 # handling the 404 error
 handler404 = 'base.views.error_404_view'

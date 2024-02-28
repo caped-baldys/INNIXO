@@ -45,10 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "django_rename_app",
-
+    
+    "phonenumber_field",
     "corsheaders",
-
     'base',
 ]
 
@@ -135,8 +134,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -154,8 +151,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = 'images/'
-
-
+UPLOADS_URL = 'images/uploads' 
+UPLOADS_QR_URL = 'images/QR'
+PHONENUMBER_DEFAULT_REGION = 'IN'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
@@ -163,18 +161,18 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = BASE_DIR / 'static/images'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
+UPLOADS_ROOT = BASE_DIR / 'static/images/uploads'
+UPLOADS_QR_ROOT = BASE_DIR / 'static/images/QR'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://codebattle.up.railway.app',
-    'https://codebattles.dev'
+    'https://innixo.vercel.app'
 ]
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # AWS_QUERYSTRING_AUTH = False
 
 

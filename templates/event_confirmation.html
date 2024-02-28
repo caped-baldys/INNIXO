@@ -1,9 +1,70 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-         <a href="{% url 'event' event.id %}">Go back</a>
-        <input type="submit" value="Confirm" />
-    </form>
+
+<style>
+    .responsive-qr {
+    max-width: 40%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+</style>
+    <div class="container--main">
+        <div class="section">
+            <div class="login-register--container">
+                <h1 class="form-field--title">Register for {{event.name}}</h1>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    
+                        <input type="text" name="team_name" placeholder="Team Name" />
+                        {% if error.team_name %}
+                            {% for message in error.team_name %}
+                                    <p class="error">{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <input type="text" name="phone_number" placeholder="Phone Number" />
+                        {% if error.phone_number %}
+                            {% for message in error.phone_number %}
+                                    <p class="error">{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+
+                        <!-- Add fields for each member -->
+                        <!-- Example for member_1 -->
+                        {% for i in max_members %}
+                            {% if forloop.counter0 <= min_members %}
+                            <input type="text" name="member_{{i}}" placeholder="Member {{i}}" required />   
+                            {% elif forloop.counter0 <= max_members %}
+                            <input type="text" name="member_{{i}}" placeholder="Member {{i}}" />
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- event_detail.html or your specific template file -->
+                        {% if event.QR_code %}
+                            <img class="responsive-qr" src="{{ event.QR_code.url }}" alt="QR Code for {{ event.name }}">
+                        {% else %}
+                            <p>No QR Code available</p>
+                        {% endif %}
+                        <p>Upload Payment Screenshot</p>
+                        <input type="file" name="payment" accept="image/*" id="id_payment" required>
+                        {% if error.payment %}
+                            {% for message in error.payment %}
+                                <p class="error">{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+
+                    
+                        <!-- Repeat for other fields as necessary, adding specific attributes or classes -->
+                    
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                
+            </div>
+        </div>
+        
+    </div>
 {% endblock content %}

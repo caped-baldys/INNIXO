@@ -54,13 +54,13 @@
                     <form class="comment-form" method="POST" action="">
                         {% csrf_token %}
                         <input type="'text" name="body" placeholder="Write a message here ..." required/>
-                        <button type="submit">Post Query</button>
+                        <button type="submit">Post Comment</button>
                     </form>
                 </div>
                 <hr>
             {% else %}
                 <div class="comment-form">
-                    <p><a href="{% url 'login' %}">Login</a> to Post Query</p>
+                    <p><a href="{% url 'login' %}">Login</a> to Post Comment</p>
                 </div>
                 <hr>
             {% endif %}
