@@ -36,9 +36,9 @@
                         <!-- Add fields for each member -->
                         <!-- Example for member_1 -->
                         {% for i in max_members %}
-                            {% if forloop.counter0 <= min_members %}
+                            {% if forloop.counter <= min_members %}
                             <input type="text" name="member_{{i}}" placeholder="Member {{i}}" required />   
-                            {% elif forloop.counter0 <= max_members %}
+                            {% elif forloop.counter <= max_members %}
                             <input type="text" name="member_{{i}}" placeholder="Member {{i}}" />
                             {% endif %}
                         {% endfor %}

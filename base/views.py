@@ -210,10 +210,10 @@ def registration_confirmation(request, pk):
                 memeber_5=request.POST.get('memeber_5'),
                 payment=uploaded_file_url,
             )
-
+            messages.info(request, 'You have registered for ', request.event.name)
             # Assuming you validate the phone number and other field    s as needed
             registration.full_clean()
-            messages.info(request, 'You have registered for ', event.name)
+            messages.info(request, 'You have registered for ', request.event.name)
             registration.save()
             return redirect('home')
         except ValidationError as e:

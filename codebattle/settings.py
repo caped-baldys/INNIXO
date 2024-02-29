@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'storages',
     "phonenumber_field",
     "corsheaders",
     'base',
@@ -173,7 +173,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_QUERYSTRING_AUTH = False
+#AWS_QUERYSTRING_AUTH = False
 
 
 # AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -190,8 +190,11 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_SIGNATURE_NAME = 's3v4',
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL =  None
+AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_VERITY = True
+AWS_QUERYSTRING_AUTH = False
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_SECURITY_TOKEN_IGNORE_ENVIRONMENT = True
-AWS_IGNORE_ENVIRONMENT_CREDENTIALS = True
+AWS_SECURITY_TOKEN_IGNORE_ENVIRONMENT = False
+AWS_IGNORE_ENVIRONMENT_CREDENTIALS = False
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+AWS_S3_ADDRESSING_STYLE = "virtual"

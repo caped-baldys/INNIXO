@@ -46,7 +46,7 @@ def qr_upload_to(instance, filename):
     upload_to = settings.UPLOADS_QR_ROOT
     
     base_filename, file_extension = filename.rsplit('.', 1)
-    filename = f"{instance.name}.{file_extension}"
+    filename = slugify(instance.name)
     return f'{upload_to}{filename}'
 
 
