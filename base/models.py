@@ -44,9 +44,9 @@ class User(AbstractUser):
 def qr_upload_to(instance, filename):
    
     upload_to = settings.UPLOADS_QR_ROOT
-    ext = filename.split('.')[-1]
-    # Generate a unique filename using UUID
-    filename = slugify(instance.name)
+    
+    base_filename, file_extension = filename.rsplit('.', 1)
+    filename = f"{instance.name``}.{file_extension}"
     return f'{upload_to}{filename}'
 
 
