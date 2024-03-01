@@ -63,10 +63,10 @@ class Event(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
-
     ordering_filter = models.IntegerField(unique=True)
     max_members = models.IntegerField(null=True) 
     min_members = models.IntegerField(null=True)
+    amount = models.IntegerField(editable=True)
     QR_code = models.ImageField(upload_to=qr_upload_to, blank=True, null=True)
     
     #image = ResizedImageField(size=[300,300], default=)

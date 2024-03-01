@@ -49,6 +49,7 @@
                         {% else %}
                             <p>No QR Code available</p>
                         {% endif %}
+                        <p>Registeration Fees {{event.amount}}</p>
                         <p>Upload Payment Screenshot</p>
                         <input type="file" name="payment" accept="image/*" id="id_payment" required>
                         {% if error.payment %}
