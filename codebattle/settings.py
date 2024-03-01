@@ -38,6 +38,8 @@ ALLOWED_HOSTS = ['.vercel.app','127.0.0.1']
 AUTH_USER_MODEL = 'base.User'
 # Application definition
 
+WSGI_APPLICATION = 'vercel_app.wsgi.app'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -89,7 +91,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'codebattle.wsgi.application'
 
 
 # Database
