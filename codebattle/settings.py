@@ -151,18 +151,18 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = 'images/'
-UPLOADS_URL = 'images/uploads' 
-UPLOADS_QR_URL = 'images/QR'
+UPLOADS_URL = 'images/uploads/' 
+UPLOADS_QR_URL = 'images/'
 PHONENUMBER_DEFAULT_REGION = 'IN'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-MEDIA_ROOT = BASE_DIR / 'static/images'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-UPLOADS_ROOT = BASE_DIR / 'static/images/uploads'
-UPLOADS_QR_ROOT = BASE_DIR / 'static/images/QR'
+MEDIA_ROOT = BASE_DIR / 'static/images/'
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
+UPLOADS_ROOT = BASE_DIR / 'static/images/uploads/'
+UPLOADS_QR_ROOT = BASE_DIR / 'static/images/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -184,9 +184,9 @@ CSRF_TRUSTED_ORIGINS = [
 # AWS_DEFAULT_ACL = None
 
 
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_SIGNATURE_NAME = 's3v4',
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_S3_FILE_OVERWRITE = False
