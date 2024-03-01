@@ -1,3 +1,4 @@
+from django.utils.html import format_html
 from django.contrib import admin
 from .models import User, Event, Submission, Comment, EventRegistration
 # Register your models here.
@@ -26,10 +27,10 @@ class EventRegistrationAdmin(admin.ModelAdmin):
     # Assuming other configurations remain the same
     readonly_fields = ['image_preview',]
     # If you have other fields to display in detail view, include them as well
-
+    list_filter = ['event']
     def image_preview(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" width="300" height="auto" />', obj.image.url)
+        if obj.payment:
+            return format_html('<img src="{}" width="300" height="auto" />', obj.payment.url)
         return "No Image Uploaded"
     image_preview.short_description = 'Image Preview'
 
