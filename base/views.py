@@ -175,15 +175,17 @@ def registration_confirmation(request, pk):
     
     event = Event.objects.get(id=pk)
     max_members = range(1, event.max_members + 1)
+    min_members = event.min_members
     if request.method == 'POST':
         # Process the form data
         try:
-            event = Event.objects.get(id=pk)
             max_members = range(1, event.max_members + 1)
+            min_members = event.min_members
             # teamleader_id = request.user
             teamleader = request.user
             # Create a temporary instance to use in get_custom_file_path
-            temp_instance = EventRegistration(event=event, teamleader=teamleader)
+            temp_instance = EventRegistration(event=Event.objects.get(id=pk), teamleader=teamleader)
+            # temp_instance = f'{event.name}{request.user}'
             team_name = request.POST.get('team_name')
             phone_number = request.POST.get('phone_number')
 
@@ -200,7 +202,7 @@ def registration_confirmation(request, pk):
 
             registration = EventRegistration(
                 event=event,
-                teamleader=teamleader,
+                teamleader=request.user,
                 team_name=team_name,
                 phone_number=phone_number,
                 memeber_1=request.POST.get('memeber_1'),
@@ -210,25 +212,24 @@ def registration_confirmation(request, pk):
                 memeber_5=request.POST.get('memeber_5'),
                 payment=uploaded_file_url,
             )
-            messages.info(request, 'You have registered for ', request.event.name)
+            
             # Assuming you validate the phone number and other field    s as needed
             registration.full_clean()
-            messages.info(request, 'You have registered for ', request.event.name)
             registration.save()
+            messages.info(request, 'You have registered for ' + event.name)
             return redirect('home')
         except ValidationError as e:
             # Handle errors and validation issues
             print(e)
-            return render(request, 'event_confirmation.html', {'error': e.message_dict, 'event': event,'max_members': max_members,'min_members':2})
+            return render(request, 'event_confirmation.html', {'error': e.message_dict, 'event': event,'max_members': max_members,'min_members':min_members})
         except Exception as e:
             print(e)
-            # Generic error handling
-            return render(request, 'event_confirmation.html', {'error': str(e), 'event': event,'max_members': max_members,'min_members':2})
+            # error handling
+            return render(request, 'event_confirmation.html', {'error': str(e), 'event': event,'max_members': max_members,'min_members':min_members})
     else:
         # GET request, show the empty form
-        events = Event.objects.all()
-        teamleaders = User.objects.all()  # Adjust based on your User model
-        return render(request, 'event_confirmation.html', {'event': event, 'max_members': max_members,'min_members':2})
+        print('some error')
+        return render(request, 'event_confirmation.html', {'event': event, 'max_members': max_members,'min_members':min_members})
 
     return render(request, 'event_confirmation.html', {'event':event,'form':form})
 
