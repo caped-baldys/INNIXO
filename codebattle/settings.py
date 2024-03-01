@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ['.vercel.app','127.0.0.1']
 AUTH_USER_MODEL = 'base.User'
 # Application definition
 
-WSGI_APPLICATION = 'vercel_app.wsgi.app'
+WSGI_APPLICATION = 'codebattle.wsgi.app'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -194,6 +194,11 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_VERITY = True
 AWS_QUERYSTRING_AUTH = False
+AWS_S3_CUSTOM_DOMAIN = 'innixo.s3.us-west-2.amazonaws.com'
+PUBLIC_MEDIA_LOCATION = 'D%3A/CodeQuest/amazon-s3/INNIXO/'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/static/images/'
+UPLOADS_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/static/images/uploads/'
+UPLOADS_QR_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/static/images/'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_SECURITY_TOKEN_IGNORE_ENVIRONMENT = False
 AWS_IGNORE_ENVIRONMENT_CREDENTIALS = False
